@@ -1,6 +1,9 @@
 ---
 import BlogPost from "../components/BlogPost.astro";
 import MainLayout from "../layouts/MainLayout.astro";
+
+const matches = import.meta.glob("./posts/*.{md,mdx}", { eager: true });
+const posts = Object.values(matches) as any[];
 ---
 
 <MainLayout title="Gabriel blog's">
@@ -13,9 +16,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 				From the blog
 			</h1>
 			<div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
-				<BlogPost
-					title="How to use sticky note for problem solving!!"
-				/>
+				{posts.map((post) => <BlogPost {...post} />)}
 			</div>
 		</div>
 	</section>
