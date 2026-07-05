@@ -16,7 +16,7 @@ const blogCollection = defineCollection({
 });
 
 const authorCollection = defineCollection({
-    loader: glob({ pattern: "**/[^_]*.{yml}", base: "./src/content/author" }),
+    loader: glob({ pattern: "**/[^_]*.yml", base: "./src/content/authors" }),
     schema: ({ image }) => z.object({
         name: z.string(),
         avatar: image(),
