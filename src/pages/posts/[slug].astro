@@ -3,22 +3,10 @@ import type { GetStaticPaths } from "astro";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 import { getCollection } from "astro:content";
 import { render } from "astro:content";
+import { Image } from "astro:assets";
 
 export const getStaticPaths = (async () => {
     const blogPosts = await getCollection("blog");
-
-    // return [
-    //     {
-    //         params: {
-    //             slug: "post-01",
-    //         },
-    //         props: {
-    //             title: "Post 01",
-    //             description: "This is the first post",
-    //             date: new Date("2023-01-01"),
-    //         },
-    //     },
-    // ];
 
     return blogPosts.map((post) => ({
         params: {
@@ -39,6 +27,17 @@ const { Content, headings } = await render(post);
 <BlogLayout title={frontmatter.title}>
     <h1 class="text-xs text-gray-500 mb-0">{frontmatter.title}</h1>
     <h4 class="text-xs text-gray-400 mb-0">{frontmatter.author}</h4>
+
+    <Image
+        class="object-cover w-full h-62.5 my-5 rounded-lg"
+        src={frontmatter.image}
+        alt={frontmatter.title}
+        width="700"
+        height="700"
+        quality="high"
+        loading="lazy"
+        transition:name={`${post.id}-image`}
+    />
 
     <h3>Tabla de contenidos</h3>
     <ol>
